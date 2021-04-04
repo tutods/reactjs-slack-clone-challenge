@@ -11,6 +11,7 @@ import { fireStoreDb } from './firebase';
 
 const App = () => {
 	const [rooms, setRooms] = useState<firebase.firestore.DocumentData[]>([]);
+	const [user, setUser] = useState();
 
 	const getChannels = () => {
 		fireStoreDb.collection('rooms').onSnapshot((snapshot) => {
@@ -29,20 +30,24 @@ const App = () => {
 	return (
 		<div className='App'>
 			<Router>
-				<Container>
-					<Header />
-					<Main>
-						<Sidebar rooms={rooms} />
-						<Switch>
-							<Route path='/room'>
-								<Chat />
-							</Route>
-							<Route path='/'>
-								<Login />
-							</Route>
-						</Switch>
-					</Main>
-				</Container>
+				{!user ? (
+					<Login />
+				) : (
+					<Container>
+						<Header />
+						<Main>
+							<Sidebar rooms={rooms} />
+							<Switch>
+								<Route path='/room'>
+									<Chat />
+								</Route>
+								<Route path='/'>
+									<Login />
+								</Route>
+							</Switch>
+						</Main>
+					</Container>
+				)}
 			</Router>
 		</div>
 	);

@@ -69,17 +69,3 @@ const Name = styled.span`
 const Text = styled.span`
 	margin-top: 2px;
 `;
-
-// const Container = styled.div``
-
-// const Container = styled.div``
-
-// const Container = styled.div``
-
-// const Container = styled.div``
-
-// const Container = styled.div``
-
-// const Container = styled.div``
-
-// const Container = styled.div``
