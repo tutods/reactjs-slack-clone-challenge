@@ -31,13 +31,15 @@ const Header = () => {
 export { Header };
 
 const Container = styled.div`
-	background-color: #350d36;
-	color: #fff;
+	position: relative;
+	z-index: 10;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	position: relative;
-	z-index: 10;
+
+	background-color: #350d36;
+	color: #fff;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 `;
 
