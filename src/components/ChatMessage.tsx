@@ -27,6 +27,10 @@ const Container = styled.div`
 
 	padding: 8px 20px;
 	box-sizing: border-box;
+
+	&:hover {
+		background-color: var(--box-bg-color);
+	}
 `;
 
 const UserAvatar = styled.div`
@@ -62,7 +66,9 @@ const Name = styled.span`
 	}
 `;
 
-const Text = styled.span``;
+const Text = styled.span`
+	margin-top: 2px;
+`;
 
 // const Container = styled.div``
 
