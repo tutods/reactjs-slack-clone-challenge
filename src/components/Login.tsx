@@ -61,6 +61,16 @@ const SlackImg = styled.img`
 `;
 
 const SignInButton = styled.button`
+	padding: 10px 40px;
+	box-sizing: border-box;
+
 	background-color: var(--success-color);
 	border: none;
+
+	font-size: 14px;
+	font-weight: 600;
+
+	&:hover {
+		background-color: var(--success-dark-color);
+	}
 `;
