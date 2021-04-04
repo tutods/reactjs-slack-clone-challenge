@@ -37,6 +37,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p,
+span,
+button {
 	color: var(--app-text-color);
 }
