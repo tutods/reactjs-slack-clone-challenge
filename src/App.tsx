@@ -1,4 +1,5 @@
-import React from 'react';
+import firebase from 'firebase';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
@@ -6,15 +7,32 @@ import { Chat } from './components/Chat';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
 import { Login } from './components/Login';
+import { fireStoreDb } from './firebase';
 
-function App() {
+const App = () => {
+	const [rooms, setRooms] = useState<firebase.firestore.DocumentData[]>([]);
+
+	const getChannels = () => {
+		fireStoreDb.collection('rooms').onSnapshot((snapshot) => {
+			setRooms(
+				snapshot.docs.map((doc) => {
+					return { id: doc.id, name: doc.data().name };
+				})
+			);
+		});
+	};
+
+	useEffect(() => {
+		getChannels();
+	}, []);
+
 	return (
 		<div className='App'>
 			<Router>
 				<Container>
 					<Header />
 					<Main>
-						<Sidebar />
+						<Sidebar rooms={rooms} />
 						<Switch>
 							<Route path='/room'>
 								<Chat />
@@ -28,7 +46,7 @@ function App() {
 			</Router>
 		</div>
 	);
-}
+};
 
 export default App;
 

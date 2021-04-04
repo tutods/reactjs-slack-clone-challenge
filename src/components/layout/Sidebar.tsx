@@ -1,14 +1,29 @@
 import { Add, AddCircle } from '@material-ui/icons';
+import firebase from 'firebase';
 import React from 'react';
 import styled from 'styled-components';
-import { channelsItems } from '../ChannelsData';
-import { sidebarItems } from '../SidebarData';
+import { sidebarItems } from '../../data/SidebarData';
+import { fireStoreDb } from '../../firebase';
 
-const Sidebar = () => {
+interface ISidebarProps {
+	rooms: firebase.firestore.DocumentData[];
+}
+
+const Sidebar = ({ rooms }: ISidebarProps) => {
+	const addChannel = () => {
+		const promptName = prompt('Enter channel name');
+
+		if (promptName) {
+			fireStoreDb.collection('rooms').add({
+				name: promptName
+			});
+		}
+	};
+
 	return (
 		<Container>
 			<WorkspaceContainer>
-				<Name>CleverProgrammer</Name>
+				<Name>Clever Programmer</Name>
 				<NewMessage>
 					<AddCircle />
 				</NewMessage>
@@ -25,12 +40,12 @@ const Sidebar = () => {
 			<ChannelsContainer>
 				<NewChannelContainer>
 					<div>Channels</div>
-					<Add />
+					<Add onClick={addChannel} />
 				</NewChannelContainer>
 
 				<ChannelsList>
-					{channelsItems.map((channel, index) => (
-						<Channel key={index}>{channel.text}</Channel>
+					{rooms.map((channel, index) => (
+						<Channel key={index}># {channel.name}</Channel>
 					))}
 				</ChannelsList>
 			</ChannelsContainer>
@@ -56,7 +71,9 @@ const WorkspaceContainer = styled.div`
 	border-bottom: 1px solid #532753;
 `;
 
-const Name = styled.div``;
+const Name = styled.div`
+	font-weight: 700;
+`;
 
 const NewMessage = styled.div`
 	width: 30px;
@@ -113,6 +130,8 @@ const NewChannelContainer = styled.div`
 
 	border-top: 1px solid #532753;
 	border-bottom: 1px solid #532753;
+
+	font-weight: 700;
 `;
 
 const ChannelsList = styled.div`
