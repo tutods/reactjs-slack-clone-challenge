@@ -406,4 +406,5 @@ firebase.json
 .firebaserc
 .firebaserc.json
 build
+.firebase/
 .firebase
