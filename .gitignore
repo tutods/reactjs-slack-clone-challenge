@@ -404,4 +404,5 @@ modules.xml
 
 firebase.json
 .firebaserc
+.firebaserc.json
 build
