@@ -1,3 +1,6 @@
+import { Apps, Bookmark, Drafts, Inbox, Message, People } from '@material-ui/icons';
+import React from 'react';
+
 export const sidebarItems = [
 	{
 		icon: <Message />,
