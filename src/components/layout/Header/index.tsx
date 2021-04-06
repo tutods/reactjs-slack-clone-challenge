@@ -1,8 +1,6 @@
 import slackLogo from 'assets/media/slack.svg';
-import { shade } from 'polished';
-import React, { useContext } from 'react';
-import Switch from 'react-switch';
-import { ThemeContext } from 'styled-components';
+import { ThemeSwitch } from 'components/inputs/ThemeSwitch';
+import React from 'react';
 import { Container, LeftContainer, Logo, Logout, User, UserAvatar } from './styles';
 
 interface IHeaderProps {
@@ -17,24 +15,12 @@ interface IHeaderProps {
 }
 
 const Header: React.FC<IHeaderProps> = ({ toggleTheme, logout, user }) => {
-	const { colors, title } = useContext(ThemeContext);
-
 	return (
 		<Container>
 			<Logo src={slackLogo} alt='Slack' />
 
 			<LeftContainer>
-				<Switch
-					onChange={toggleTheme}
-					checked={title === 'dark'}
-					checkedIcon={false}
-					uncheckedIcon={false}
-					height={10}
-					width={40}
-					handleDiameter={20}
-					offColor={shade(0.25, colors.secondary)}
-					onColor={colors.secondary}
-				/>
+				<ThemeSwitch toggleTheme={toggleTheme} />
 
 				{user && (
 					<User>
@@ -43,7 +29,6 @@ const Header: React.FC<IHeaderProps> = ({ toggleTheme, logout, user }) => {
 						{user.name}
 					</User>
 				)}
-
 				<Logout onClick={logout}>Logout</Logout>
 			</LeftContainer>
 		</Container>
