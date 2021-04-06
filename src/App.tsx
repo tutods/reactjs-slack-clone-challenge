@@ -1,5 +1,5 @@
-import darkTheme from 'assets/styles/theme/dark';
-import lightTheme from 'assets/styles/theme/light';
+import { darkTheme } from 'assets/styles/theme/dark';
+import { lightTheme } from 'assets/styles/theme/light';
 import { Header } from 'components/layout/Header';
 import { Sidebar } from 'components/layout/Sidebar';
 import { Chat } from 'controllers/Chat';
@@ -41,8 +41,8 @@ const App = () => {
 			<div className='App'>
 				<GlobalStyle />
 				<Router>
-					{user ? (
-						<Login />
+					{!user ? (
+						<Login toggleTheme={toggleTheme} />
 					) : (
 						<Container>
 							<Header toggleTheme={toggleTheme} />
@@ -51,9 +51,6 @@ const App = () => {
 								<Switch>
 									<Route path='/room'>
 										<Chat />
-									</Route>
-									<Route path='/'>
-										<Login />
 									</Route>
 								</Switch>
 							</Main>

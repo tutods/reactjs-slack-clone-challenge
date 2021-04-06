@@ -5,10 +5,8 @@ export const Container = styled.div`
 	width: 100%;
 	height: 100vh;
 
-	display: flex;
-
-	justify-content: center;
-	align-items: center;
+	${flexSettings()};
+	${flexAlignment('center', 'center')};
 
 	background-color: ${(props) => props.theme.colors.background};
 `;
@@ -17,20 +15,19 @@ export const Content = styled.div`
 	${flexSettings('column')};
 	${flexAlignment('center', 'center')};
 
-	padding: 40px;
-	box-sizing: border-box;
-	border-radius: 5px;
+	padding: 100px;
+	border-radius: 10px;
 
 	background-color: ${(props) => props.theme.colors.boxBackground};
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
 	text-align: center;
 
 	> h1 {
-		margin-top: 30px;
+		font-weight: 300;
 	}
 
 	> * + * {
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 `;
 
@@ -41,14 +38,17 @@ export const SlackImg = styled.img`
 
 export const SignInButton = styled.button`
 	padding: 10px 40px;
-	box-sizing: border-box;
 
 	color: ${(props) => props.theme.colors.white};
 	background-color: ${(props) => props.theme.colors.success};
 	border: none;
+	border-radius: 5px;
 
 	font-size: 14px;
-	font-weight: 600;
+	font-weight: 500;
+	cursor: pointer;
+
+	transition: 0.5s ease-in-out background-color;
 
 	&:hover {
 		background-color: ${(props) => props.theme.colors.successDarken};

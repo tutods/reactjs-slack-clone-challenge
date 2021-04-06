@@ -1,7 +1,5 @@
 import { Container, MessageContent, Name, Text, UserAvatar } from './styles';
 
-interface IChatMessageProps {}
-
 const ChatMessage = () => {
 	return (
 		<Container>
