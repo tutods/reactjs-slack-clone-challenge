@@ -129,7 +129,9 @@ const Logo = styled.img`
 	margin-bottom: 40px;
 
 	animation-name: ckw;
-	animation-duration: 15.5s;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 
 	@keyframes ckw {
 		0% {
