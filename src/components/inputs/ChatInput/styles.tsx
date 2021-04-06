@@ -1,31 +1,12 @@
-import { Send } from '@material-ui/icons';
-import React from 'react';
+import { flexAlignment, flexSettings } from 'assets/styles/mixins';
 import styled from 'styled-components';
 
-const ChatInput = () => {
-	return (
-		<Container>
-			<InputContainer>
-				<form>
-					<input type='text' placeholder='Message here...' />
-
-					<SendButton>
-						<Send />
-					</SendButton>
-				</form>
-			</InputContainer>
-		</Container>
-	);
-};
-
-export { ChatInput };
-
-const Container = styled.div`
+export const Container = styled.div`
 	padding: 0 20px 20px;
 	box-sizing: border-box;
 `;
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
 	box-sizing: border-box;
 
 	border-radius: 4px;
@@ -52,13 +33,12 @@ const InputContainer = styled.div`
 	}
 `;
 
-const SendButton = styled.div`
+export const SendButton = styled.div`
 	width: 32px;
 	height: 32px;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${flexSettings()};
+	${flexAlignment('center', 'center')};
 
 	margin-left: 10px;
 
