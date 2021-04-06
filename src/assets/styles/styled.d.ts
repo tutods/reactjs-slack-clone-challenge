@@ -13,7 +13,10 @@ declare module 'styled-components' {
 			text: string;
 
 			success: string;
-			successDarken: string;
+			successDark: string;
+
+			danger: string;
+			dangerDark: string;
 
 			white: string;
 			black: string;

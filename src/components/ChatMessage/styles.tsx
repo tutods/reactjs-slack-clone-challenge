@@ -1,4 +1,5 @@
 import { flexSettings } from 'assets/styles/mixins';
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -13,8 +14,8 @@ export const Container = styled.div`
 `;
 
 export const UserAvatar = styled.div`
-	width: 36px;
-	height: 36px;
+	width: 40px;
+	height: 40px;
 
 	border-radius: 2px;
 	overflow: hidden;
@@ -40,7 +41,7 @@ export const Name = styled.span`
 
 		font-size: 13px;
 		font-weight: 400;
-		color: var(--gray-color);
+		color: ${(props) => shade(0.25, props.theme.colors.text)};
 	}
 `;
 

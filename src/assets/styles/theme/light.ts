@@ -10,7 +10,10 @@ export const lightTheme = {
 		text: '#333',
 
 		success: '#00695c',
-		successDarken: '#004d40',
+		successDark: '#004d40',
+
+		danger: '#dc3545',
+		dangerDark: '#c52231',
 
 		white: '#fff',
 		black: '#000'

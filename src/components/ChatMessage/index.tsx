@@ -1,18 +1,23 @@
+import { IMessage } from 'interfaces/IChat';
 import { Container, MessageContent, Name, Text, UserAvatar } from './styles';
 
-const ChatMessage = () => {
+interface IChatMessageProps {
+	message: IMessage;
+}
+
+const ChatMessage: React.FC<IChatMessageProps> = ({ message }) => {
 	return (
 		<Container>
 			<UserAvatar>
-				<img src='https://github.com/tutods.png' alt='Daniel Sousa' />
+				<img src={message.userImage} alt={message.user} />
 			</UserAvatar>
 			<MessageContent>
 				<Name>
-					Daniel Sousa
-					<span>02/23/2021 11:13:55</span>
+					{message.user}
+					<span>{new Date(message.timestamp.toDate()).toLocaleString()}</span>
 				</Name>
 
-				<Text>The best challenge!</Text>
+				<Text>{message.text}</Text>
 			</MessageContent>
 		</Container>
 	);

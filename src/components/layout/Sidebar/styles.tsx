@@ -1,5 +1,6 @@
 import { flexAlignment, flexSettings } from 'assets/styles/mixins';
 import { shade } from 'polished';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -85,7 +86,7 @@ export const ChannelsList = styled.div`
 	margin-top: 10px;
 `;
 
-export const Channel = styled.div`
+export const Channel = styled(Link)`
 	${flexSettings()};
 	${flexAlignment('center', 'space-between')};
 
@@ -94,6 +95,7 @@ export const Channel = styled.div`
 	color: ${(props) => shade(0.25, props.theme.colors.white)};
 
 	cursor: pointer;
+	text-decoration: none;
 
 	&:hover {
 		background-color: ${(props) => shade(0.25, props.theme.colors.primary)};

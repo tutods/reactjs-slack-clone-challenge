@@ -1,8 +1,8 @@
 import { Add, AddCircle } from '@material-ui/icons';
+import { sidebarItems } from 'data/SidebarData';
 import firebase from 'firebase';
+import { fireStoreDb } from 'firebaseConf';
 import React from 'react';
-import { sidebarItems } from '../../../data/SidebarData';
-import { fireStoreDb } from '../../../firebaseConf';
 import {
 	Channel,
 	ChannelsContainer,
@@ -20,13 +20,16 @@ interface ISidebarProps {
 	rooms: firebase.firestore.DocumentData[];
 }
 
-const Sidebar = ({ rooms }: ISidebarProps) => {
+const Sidebar: React.FC<ISidebarProps> = ({ rooms }) => {
 	const addChannel = () => {
 		const promptName = prompt('Enter channel name');
+		const promptDescription = prompt('Enter channel description');
 
 		if (promptName) {
 			fireStoreDb.collection('rooms').add({
-				name: promptName
+				name: promptName,
+				description: promptDescription,
+				messages: [{}]
 			});
 		}
 	};
@@ -56,7 +59,9 @@ const Sidebar = ({ rooms }: ISidebarProps) => {
 
 				<ChannelsList>
 					{rooms.map((channel, index) => (
-						<Channel key={index}># {channel.name}</Channel>
+						<Channel key={index} to={`/room/${channel.id}`}>
+							# {channel.name}
+						</Channel>
 					))}
 				</ChannelsList>
 			</ChannelsContainer>

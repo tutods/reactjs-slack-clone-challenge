@@ -1,4 +1,4 @@
-/* :root {
+/* /* /* :root {
 	--app-bg-color: #f2f3f5;
 	--app-text-color: #2e384d;
 	--box-bg-color: #fff;
@@ -42,4 +42,10 @@ p,
 span,
 button {
 	color: var(--app-text-color);
-}
+} */
+
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+	background: ${(props) => props.theme.colors.text};
+} */

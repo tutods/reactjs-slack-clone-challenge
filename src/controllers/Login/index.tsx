@@ -1,16 +1,36 @@
 import slackLogo from 'assets/media/slack.svg';
+import { firebaseAuth, firebaseProvider } from 'firebaseConf';
+import { IUser } from 'interfaces/IUser';
 import { shade } from 'polished';
-import React, { useContext } from 'react';
+import React, { Dispatch, SetStateAction, useContext } from 'react';
 import Switch from 'react-switch';
 import { ThemeContext } from 'styled-components';
 import { Container, Content, SignInButton, SlackImg } from './styles';
 
 interface ILoginProps {
 	toggleTheme(): void;
+	setUser: Dispatch<SetStateAction<IUser | null | undefined>>;
 }
 
-const Login: React.FC<ILoginProps> = ({ toggleTheme }) => {
+const Login: React.FC<ILoginProps> = ({ toggleTheme, setUser }) => {
 	const { colors, title } = useContext(ThemeContext);
+
+	const signIn = () => {
+		firebaseAuth
+			.signInWithPopup(firebaseProvider)
+			.then((result) => {
+				const user = {
+					name: result.user?.displayName,
+					photo: result.user?.photoURL
+				};
+
+				localStorage.setItem('user', JSON.stringify(user));
+				setUser(user as IUser);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	return (
 		<Container>
@@ -31,7 +51,7 @@ const Login: React.FC<ILoginProps> = ({ toggleTheme }) => {
 
 				<h1>Sign in Slack</h1>
 
-				<SignInButton>Sign In With Google</SignInButton>
+				<SignInButton onClick={() => signIn()}>Sign In With Google</SignInButton>
 			</Content>
 		</Container>
 	);

@@ -403,3 +403,5 @@ modules.xml
 .husky
 
 firebase.json
+.firebaserc
+build

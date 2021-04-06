@@ -2,19 +2,16 @@ import { flexAlignment, flexSettings } from 'assets/styles/mixins';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-	padding: 0 20px 20px;
-	box-sizing: border-box;
+	padding: 0 20px 10px;
 `;
 
 export const InputContainer = styled.div`
-	box-sizing: border-box;
-
 	border-radius: 4px;
 	border: 1px solid #8d8d8e;
 
 	> form {
-		padding: 0 20px;
-		height: 42px;
+		padding: 10px 20px;
+		height: 50px;
 
 		display: flex;
 		align-items: center;
@@ -23,7 +20,7 @@ export const InputContainer = styled.div`
 		input {
 			flex: 1;
 
-			color: var(--app-text-color);
+			color: ${(props) => props.theme.colors.text};
 			font-size: 14px;
 
 			border: none;
@@ -33,7 +30,7 @@ export const InputContainer = styled.div`
 	}
 `;
 
-export const SendButton = styled.div`
+export const SendButton = styled.button`
 	width: 32px;
 	height: 32px;
 
@@ -43,8 +40,9 @@ export const SendButton = styled.div`
 	margin-left: 10px;
 
 	color: #fff;
-	background-color: var(--success-color);
+	background-color: ${(props) => props.theme.colors.success};
 	border-radius: 2px;
+	border: none;
 
 	cursor: pointer;
 
@@ -53,6 +51,11 @@ export const SendButton = styled.div`
 	}
 
 	&:hover {
-		background-color: var(--success-dark-color);
+		background-color: ${(props) => props.theme.colors.successDark};
+		border: none;
+	}
+
+	&:focus {
+		outline: none;
 	}
 `;

@@ -47,10 +47,11 @@ export const SignInButton = styled.button`
 	font-size: 14px;
 	font-weight: 500;
 	cursor: pointer;
+	outline: none;
 
 	transition: 0.5s ease-in-out background-color;
 
 	&:hover {
-		background-color: ${(props) => props.theme.colors.successDarken};
+		background-color: ${(props) => props.theme.colors.successDark};
 	}
 `;

@@ -3,8 +3,8 @@ import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-	/* position: relative; */
 	z-index: 10;
+	height: 50px;
 
 	${flexSettings()};
 	${flexAlignment('center', 'space-between')};
@@ -23,67 +23,36 @@ export const Logo = styled.img`
 	height: auto;
 `;
 
-export const Main = styled.div`
-	display: flex;
-	align-items: center;
-	margin-right: 16px;
-	margin-left: 16px;
+export const User = styled.div`
+	${flexSettings()};
+	${flexAlignment()};
+
+	margin-left: 20px;
+
+	font-weight: 600;
 `;
 
-export const SearchContainer = styled.div`
-	min-width: 400px;
-	margin-left: 16px;
-	margin-right: 16px;
-`;
-
-export const Search = styled.div`
-	box-shadow: inset 0 0 0 1px ${(props) => props.theme.colors.white};
-	width: 100%;
-	border-radius: 6px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	input {
-		background-color: transparent;
-		border: none;
-		padding-left: 8px;
-		padding-right: 8px;
-		padding-top: 4px;
-		padding-bottom: 4px;
-		color: ${(props) => props.theme.colors.white};
-		width: 85%;
-
-		&::placeholder {
-			color: ${(props) => props.theme.colors.white};
-		}
-
-		&:focus {
-			outline: none;
-		}
-	}
-`;
-
-export const UserContainer = styled.div`
-	display: flex;
-	align-items: center;
-	padding-right: 16px;
-	position: absolute;
-	right: 0;
-`;
-
-export const Name = styled.div`
-	padding-right: 16px;
-`;
-
-export const UserImage = styled.div`
-	width: 28px;
-	height: 28px;
+export const UserAvatar = styled.img`
 	border: 2px solid ${(props) => props.theme.colors.white};
-	border-radius: 3px;
+	border-radius: 100%;
+	width: 26px;
+	height: 26px;
 
-	img {
-		width: 100%;
-		height: 100%;
+	margin-right: 10px;
+`;
+
+export const LeftContainer = styled.div`
+	${flexSettings()};
+	${flexAlignment()};
+`;
+
+export const Logout = styled.span`
+	margin-left: 30px;
+	color: ${(props) => props.theme.colors.danger};
+	font-weight: 800;
+	cursor: pointer;
+
+	&:hover {
+		color: ${(props) => props.theme.colors.dangerDark};
 	}
 `;
