@@ -1,11 +1,12 @@
 import { ChatMessage } from 'components/ChatMessage';
 import { ChatInput } from 'components/inputs/ChatInput';
+import { ChannelDialog } from 'components/modals/ChannelDialog';
+import { UserContext } from 'contexts/UserContext';
 import firebase from 'firebase';
 import { fireStoreDb } from 'firebaseConf';
 import { IChat, IMessage } from 'interfaces/IChat';
-import { IUser } from 'interfaces/IUser';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Redirect, RouteComponentProps, useParams } from 'react-router-dom';
 import {
 	Channel,
 	ChannelDetails,
@@ -21,14 +22,19 @@ interface IRouteParams {
 	channelId: string;
 }
 
-interface IChatProps {
-	user: IUser;
-}
+// ts-lint:disable-next-line:no-any
+interface IChatProps extends RouteComponentProps<any> {}
 
-const Chat: React.FC<IChatProps> = ({ user }) => {
+const Chat: React.FunctionComponent<IChatProps> = ({ history }) => {
 	const { channelId } = useParams<IRouteParams>();
 
+	// Contexts
+	const { user } = useContext(UserContext);
+
 	const [channel, setChannel] = useState<IChat | undefined>();
+
+	const [modalVisibility, setModalVisibility] = useState(false);
+
 	const [messages, setMessages] = useState<
 		firebase.firestore.DocumentData | IMessage[] | undefined
 	>([]);
@@ -37,8 +43,8 @@ const Chat: React.FC<IChatProps> = ({ user }) => {
 		if (channelId) {
 			const payload = {
 				text,
-				user: user.name,
-				userImage: user.photo,
+				user: user?.name,
+				userImage: user?.photo,
 				timestamp: firebase.firestore.Timestamp.now()
 			};
 
@@ -53,7 +59,15 @@ const Chat: React.FC<IChatProps> = ({ user }) => {
 			.collection('rooms')
 			.doc(channelId)
 			.onSnapshot((snapshot) => {
-				setChannel(snapshot.data() as IChat);
+				console.log(snapshot.exists);
+				if (!snapshot.exists) {
+					history.push('/');
+				}
+
+				setChannel({
+					id: snapshot.id,
+					...snapshot.data()
+				} as IChat);
 			});
 
 		// Get Messages
@@ -76,31 +90,41 @@ const Chat: React.FC<IChatProps> = ({ user }) => {
 
 				setMessages(result);
 			});
-	}, [channelId]);
+	}, [channelId, channel]);
 
-	return (
+	// Redirect if not have id
+	if (!channelId) {
+		return <Redirect to='/' />;
+	}
+
+	return channel ? (
 		<Container>
+			<ChannelDialog
+				channel={channel}
+				isOpen={modalVisibility}
+				onClose={() => setModalVisibility(false)}
+			/>
 			<Header>
 				<Channel>
-					<ChannelName># {channel?.name}</ChannelName>
-					{channel?.description && <ChannelInfo>{channel?.description}</ChannelInfo>}
+					<ChannelName># {channel.name}</ChannelName>
+					{channel.description && <ChannelInfo>{channel.description}</ChannelInfo>}
 				</Channel>
-				<ChannelDetails>
+				<ChannelDetails onClick={() => setModalVisibility(!modalVisibility)}>
 					<div>Details</div>
 
 					<Info />
 				</ChannelDetails>
 			</Header>
-
 			<MessageContainer>
 				{messages &&
 					messages.map((message: IMessage, index: number) => (
 						<ChatMessage key={index} message={message} />
 					))}
 			</MessageContainer>
-
 			<ChatInput sendFunction={sendMessage} />
 		</Container>
+	) : (
+		<Redirect to='/' />
 	);
 };
 

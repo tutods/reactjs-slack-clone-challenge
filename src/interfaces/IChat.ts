@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 export interface IChat {
+	id?: string;
 	name: string;
 	description?: string;
 	messages?: IMessage[];

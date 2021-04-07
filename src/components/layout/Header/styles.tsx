@@ -3,7 +3,7 @@ import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-	z-index: 10;
+	z-index: 5;
 	height: 50px;
 
 	${flexSettings()};

@@ -1,26 +1,20 @@
 import slackLogo from 'assets/media/slack.svg';
 import { ThemeSwitch } from 'components/inputs/ThemeSwitch';
-import React from 'react';
+import { UserContext } from 'contexts/UserContext';
+import React, { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 import { Container, LeftContainer, Logo, Logout, User, UserAvatar } from './styles';
 
-interface IHeaderProps {
-	user:
-		| {
-				name: string;
-				photo: string;
-		  }
-		| undefined;
-	logout(): void;
-	toggleTheme(): void;
-}
+const Header: React.FC = () => {
+	const { colors } = useContext(ThemeContext);
+	const { user, logout } = useContext(UserContext);
 
-const Header: React.FC<IHeaderProps> = ({ toggleTheme, logout, user }) => {
 	return (
 		<Container>
 			<Logo src={slackLogo} alt='Slack' />
 
 			<LeftContainer>
-				<ThemeSwitch toggleTheme={toggleTheme} />
+				<ThemeSwitch lightColor={colors.white} darkColor={colors.white} />
 
 				{user && (
 					<User>

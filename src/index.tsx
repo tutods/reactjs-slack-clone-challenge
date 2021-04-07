@@ -1,10 +1,11 @@
+import { ThemeModeProvider } from 'contexts/ThemeModeContext';
+import { Main } from 'controllers/Main';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 
 ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+	<ThemeModeProvider>
+		<Main />
+	</ThemeModeProvider>,
 	document.getElementById('root')
 );

@@ -1,6 +1,7 @@
+import { Add } from '@material-ui/icons';
 import { flexAlignment, flexSettings } from 'assets/styles/mixins';
 import { shade } from 'polished';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -21,23 +22,6 @@ export const WorkspaceContainer = styled.div`
 
 export const Name = styled.div`
 	font-weight: 700;
-`;
-
-export const NewMessage = styled.div`
-	width: 30px;
-	height: 30px;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	border-radius: 50%;
-
-	background: ${(props) => props.theme.colors.white};
-	color: ${(props) => props.theme.colors.primary};
-	fill: ${(props) => props.theme.colors.primary};
-
-	cursor: pointer;
 `;
 
 export const MainChannels = styled.div`
@@ -63,16 +47,11 @@ export const MainChannelItem = styled.div`
 
 export const ChannelsContainer = styled.div`
 	margin-top: 10px;
-
-	/* color: rgb(188, 171, 188); */
 `;
 
 export const NewChannelContainer = styled.div`
-	/* height: 28px; */
-
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	${flexSettings()};
+	${flexAlignment('center', 'space-between')};
 
 	padding: 10px 19px;
 
@@ -82,11 +61,23 @@ export const NewChannelContainer = styled.div`
 	font-weight: 700;
 `;
 
+export const AddChannel = styled(Add)`
+	padding: 2px;
+	border-radius: 25px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: ${(props) => shade(0.5, props.theme.colors.secondary)};
+	}
+`;
+
 export const ChannelsList = styled.div`
 	margin-top: 10px;
 `;
 
-export const Channel = styled(Link)`
+export const Channel = styled(NavLink)`
+	position: relative;
+
 	${flexSettings()};
 	${flexAlignment('center', 'space-between')};
 
@@ -100,5 +91,24 @@ export const Channel = styled(Link)`
 	&:hover {
 		background-color: ${(props) => shade(0.25, props.theme.colors.primary)};
 		color: ${(props) => props.theme.colors.white};
+	}
+
+	&.${(props) => props.activeClassName} {
+		background-color: ${(props) => shade(0.25, props.theme.colors.primary)};
+		color: ${(props) => props.theme.colors.white};
+
+		font-weight: 600;
+
+		&::before {
+			content: '';
+
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+
+			width: 5px;
+			background-color: ${(props) => props.theme.colors.secondary};
+		}
 	}
 `;

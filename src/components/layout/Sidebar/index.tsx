@@ -1,9 +1,8 @@
-import { Add, AddCircle } from '@material-ui/icons';
+import { ChannelsContext } from 'contexts/ChannelsContext';
 import { sidebarItems } from 'data/SidebarData';
-import firebase from 'firebase';
-import { fireStoreDb } from 'firebaseConf';
-import React from 'react';
+import React, { useContext } from 'react';
 import {
+	AddChannel,
 	Channel,
 	ChannelsContainer,
 	ChannelsList,
@@ -12,35 +11,16 @@ import {
 	MainChannels,
 	Name,
 	NewChannelContainer,
-	NewMessage,
 	WorkspaceContainer
 } from './styles';
 
-interface ISidebarProps {
-	rooms: firebase.firestore.DocumentData[];
-}
-
-const Sidebar: React.FC<ISidebarProps> = ({ rooms }) => {
-	const addChannel = () => {
-		const promptName = prompt('Enter channel name');
-		const promptDescription = prompt('Enter channel description');
-
-		if (promptName) {
-			fireStoreDb.collection('rooms').add({
-				name: promptName,
-				description: promptDescription,
-				messages: [{}]
-			});
-		}
-	};
+const Sidebar: React.FC = () => {
+	const { channels, addChannel } = useContext(ChannelsContext);
 
 	return (
 		<Container>
 			<WorkspaceContainer>
-				<Name>Clever Programmer</Name>
-				<NewMessage>
-					<AddCircle />
-				</NewMessage>
+				<Name>Slack Clone</Name>
 			</WorkspaceContainer>
 
 			<MainChannels>
@@ -54,12 +34,16 @@ const Sidebar: React.FC<ISidebarProps> = ({ rooms }) => {
 			<ChannelsContainer>
 				<NewChannelContainer>
 					<div>Channels</div>
-					<Add onClick={addChannel} />
+					<AddChannel onClick={addChannel} />
 				</NewChannelContainer>
 
 				<ChannelsList>
-					{rooms.map((channel, index) => (
-						<Channel key={index} to={`/room/${channel.id}`}>
+					{channels.map((channel, index) => (
+						<Channel
+							key={index}
+							to={`/channels/${channel.id}`}
+							activeClassName='active-channel'
+						>
 							# {channel.name}
 						</Channel>
 					))}
