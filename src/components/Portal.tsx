@@ -16,7 +16,7 @@ const Portal: React.FunctionComponent<IPortalProps> = ({ children, target }) => 
 		document.body.appendChild(currentElement);
 
 		return () => {
-			currentElement.parentElement?.removeChild(element.current);
+			currentElement.parentElement?.removeChild(currentElement);
 		};
 	}, [target]);
 
