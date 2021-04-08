@@ -2,7 +2,7 @@ import { SvgIcon } from '@material-ui/core';
 import { Cancel, Close, Delete } from '@material-ui/icons';
 import { Portal } from 'components/Portal';
 import { ChannelsContext } from 'contexts/ChannelsContext';
-import { IChat } from 'interfaces/IChat';
+import { IChannel } from 'interfaces/IChannel';
 import React, { useContext, useEffect } from 'react';
 import {
 	CancelButton,
@@ -15,7 +15,7 @@ import {
 } from './styles';
 
 interface IChannelDialogProps {
-	channel: IChat;
+	channel: IChannel;
 	isOpen: boolean;
 	onClose(): void;
 }

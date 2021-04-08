@@ -1,9 +1,9 @@
-import { fireStoreDb } from 'firebaseConf';
-import { IChat } from 'interfaces/IChat';
+import { firebase } from 'firebaseConf';
+import { IChannel } from 'interfaces/IChannel';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
 interface IChannelsContext {
-	channels: IChat[];
+	channels: IChannel[];
 	addChannel(): void;
 	deleteChannel(id: string): Promise<boolean>;
 }
@@ -15,55 +15,44 @@ interface IChannelsProviderProps {
 export const ChannelsContext = createContext({} as IChannelsContext);
 
 export const ChannelsProvider = ({ children }: IChannelsProviderProps) => {
-	const [channels, setChannels] = useState<IChat[]>([]);
-
-	const getChannels = () => {
-		fireStoreDb.collection('rooms').onSnapshot((snapshot) => {
-			setChannels(
-				snapshot.docs.map((doc) => {
-					return {
-						id: doc.id,
-						name: doc.data().name,
-						description: doc.data().description
-					} as IChat;
-				})
-			);
-		});
-	};
+	const [channels, setChannels] = useState<IChannel[]>([]);
 
 	useEffect(() => {
-		getChannels();
-	}, []);
+		const fetchData = async () => {
+			const data = await firebase.firestore().collection('channels').get();
 
-	const addChannel = () => {
+			setChannels(
+				data.docs.map((channel) => ({ id: channel.id, ...channel.data() } as IChannel))
+			);
+		};
+
+		fetchData();
+	}, [channels]);
+
+	const addChannel = async () => {
 		const promptName = prompt('Enter channel name');
 		const promptDescription = prompt('Enter channel description');
 
 		if (promptName) {
-			fireStoreDb.collection('rooms').add({
+			await firebase.firestore().collection('channels').add({
 				name: promptName,
-				description: promptDescription,
-				messages: [{}]
+				description: promptDescription
 			});
 		}
 	};
 
-	const deleteChannel = (id: string) => {
-		fireStoreDb
-			.collection('rooms')
-			.doc(id)
-			.collection('messages')
-			.onSnapshot((snapshot) => {
-				snapshot.forEach((message) => {
-					message.ref.delete();
-				});
-			});
+	const deleteChannel = async (id: string) => {
+		const docRef = firebase.firestore().collection('channels').doc(id);
 
-		return fireStoreDb
-			.collection('rooms')
-			.doc(id)
+		return await docRef
 			.delete()
-			.then(() => true)
+			.then(() => {
+				docRef.collection('messages').onSnapshot((messages) => {
+					messages.forEach((message) => message.ref.delete());
+				});
+
+				return true;
+			})
 			.catch(() => false);
 	};
 

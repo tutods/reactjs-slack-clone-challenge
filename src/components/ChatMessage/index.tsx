@@ -1,4 +1,4 @@
-import { IMessage } from 'interfaces/IChat';
+import { IMessage } from 'interfaces/IChannel';
 import { Container, MessageContent, Name, Text, UserAvatar } from './styles';
 
 interface IChatMessageProps {

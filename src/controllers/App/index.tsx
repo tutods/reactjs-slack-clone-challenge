@@ -2,7 +2,7 @@ import { Header } from 'components/layout/Header';
 import { Sidebar } from 'components/layout/Sidebar';
 import { ChannelsProvider } from 'contexts/ChannelsContext';
 import { Chat } from 'controllers/Chat';
-import { NoChannelSelected } from 'controllers/NoChannel';
+import { NoChannelSelected } from 'controllers/NoChannelSelected';
 import { PrivateRoute } from 'utils/PrivateRoute';
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';

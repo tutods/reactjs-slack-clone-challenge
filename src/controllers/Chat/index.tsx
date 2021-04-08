@@ -1,10 +1,10 @@
 import { ChatMessage } from 'components/ChatMessage';
 import { ChatInput } from 'components/inputs/ChatInput';
+import Loading from 'components/Loading';
 import { ChannelDialog } from 'components/modals/ChannelDialog';
 import { UserContext } from 'contexts/UserContext';
 import firebase from 'firebase';
-import { fireStoreDb } from 'firebaseConf';
-import { IChat, IMessage } from 'interfaces/IChat';
+import { IChannel, IMessage } from 'interfaces/IChannel';
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, RouteComponentProps, useParams } from 'react-router-dom';
 import {
@@ -23,23 +23,23 @@ interface IRouteParams {
 }
 
 // ts-lint:disable-next-line:no-any
-interface IChatProps extends RouteComponentProps<any> {}
+interface IChannelProps extends RouteComponentProps<any> {}
 
-const Chat: React.FunctionComponent<IChatProps> = ({ history }) => {
+const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 	const { channelId } = useParams<IRouteParams>();
+
+	const [isLoading, setIsLoading] = useState(true);
 
 	// Contexts
 	const { user } = useContext(UserContext);
 
-	const [channel, setChannel] = useState<IChat | undefined>();
+	const [channel, setChannel] = useState<IChannel>();
 
 	const [modalVisibility, setModalVisibility] = useState(false);
 
-	const [messages, setMessages] = useState<
-		firebase.firestore.DocumentData | IMessage[] | undefined
-	>([]);
+	const [messages, setMessages] = useState<IMessage[]>([]);
 
-	const sendMessage = (text: string) => {
+	const sendMessage = async (text: string) => {
 		if (channelId) {
 			const payload = {
 				text,
@@ -48,49 +48,42 @@ const Chat: React.FunctionComponent<IChatProps> = ({ history }) => {
 				timestamp: firebase.firestore.Timestamp.now()
 			};
 
-			fireStoreDb.collection('rooms').doc(channelId).collection('messages').add(payload);
+			await firebase
+				.firestore()
+				.collection('channels')
+				.doc(channelId)
+				.collection('messages')
+				.add(payload);
 		}
 	};
 
 	// Get Channel and messages every time the channel id change
 	useEffect(() => {
 		// Get Channel
-		fireStoreDb
-			.collection('rooms')
-			.doc(channelId)
-			.onSnapshot((snapshot) => {
-				console.log(snapshot.exists);
-				if (!snapshot.exists) {
-					history.push('/');
-				}
+		const fetchData = async () => {
+			const channelDoc = firebase.firestore().collection('channels').doc(channelId);
+			const channel = await channelDoc.get();
 
-				setChannel({
-					id: snapshot.id,
-					...snapshot.data()
-				} as IChat);
-			});
+			if (!channel || !channel.exists) {
+				return history.push('/');
+			}
 
-		// Get Messages
-		fireStoreDb
-			.collection('rooms')
-			.doc(channelId)
-			.collection('messages')
-			.orderBy('timestamp', 'asc')
-			.onSnapshot((snapshot) => {
-				const result = snapshot.docs.map((message) => {
-					const { text, user, userImage, timestamp } = message.data();
+			setChannel({ id: channel.id, ...channel.data() } as IChannel);
+			setIsLoading(true);
 
-					return {
-						text,
-						user,
-						userImage,
-						timestamp
-					};
-				});
+			// Get Messages
+			const messages = await channelDoc
+				.collection('messages')
+				.orderBy('timestamp', 'asc')
+				.get();
 
-				setMessages(result);
-			});
-	}, [channelId, channel]);
+			setMessages(
+				messages.docs.map((message) => ({ id: message.id, ...message.data() } as IMessage))
+			);
+		};
+
+		fetchData();
+	}, [channelId, history, messages, isLoading]);
 
 	// Redirect if not have id
 	if (!channelId) {
@@ -99,15 +92,17 @@ const Chat: React.FunctionComponent<IChatProps> = ({ history }) => {
 
 	return channel ? (
 		<Container>
+			<Loading isLoading={isLoading} />
 			<ChannelDialog
 				channel={channel}
 				isOpen={modalVisibility}
 				onClose={() => setModalVisibility(false)}
 			/>
+
 			<Header>
 				<Channel>
-					<ChannelName># {channel.name}</ChannelName>
-					{channel.description && <ChannelInfo>{channel.description}</ChannelInfo>}
+					<ChannelName># {channel?.name}</ChannelName>
+					{channel?.description && <ChannelInfo>{channel?.description}</ChannelInfo>}
 				</Channel>
 				<ChannelDetails onClick={() => setModalVisibility(!modalVisibility)}>
 					<div>Details</div>
@@ -124,7 +119,7 @@ const Chat: React.FunctionComponent<IChatProps> = ({ history }) => {
 			<ChatInput sendFunction={sendMessage} />
 		</Container>
 	) : (
-		<Redirect to='/' />
+		<Loading isLoading={true} />
 	);
 };
 

@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-export interface IChat {
+export interface IChannel {
 	id?: string;
 	name: string;
 	description?: string;
@@ -8,6 +8,7 @@ export interface IChat {
 }
 
 export interface IMessage {
+	id?: string;
 	text: string;
 	user: string;
 	userImage: string;

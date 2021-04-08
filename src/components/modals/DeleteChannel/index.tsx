@@ -1,9 +1,9 @@
-import { IChat } from 'interfaces/IChat';
+import { IChannel } from 'interfaces/IChannel';
 import React, { useEffect, useState } from 'react';
 import { Close, Modal, Overlay } from './styles';
 
 interface IDeleteChannelProps {
-	channel: IChat;
+	channel: IChannel;
 	visible: boolean;
 	onClose(): void;
 }
