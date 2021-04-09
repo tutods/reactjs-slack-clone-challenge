@@ -6,7 +6,7 @@ import { UserContext } from 'contexts/UserContext';
 import firebase from 'firebase';
 import { IChannel, IMessage } from 'interfaces/IChannel';
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, RouteComponentProps, useParams } from 'react-router-dom';
+import { RouteComponentProps, useParams } from 'react-router-dom';
 import {
 	Channel,
 	ChannelDetails,
@@ -57,70 +57,68 @@ const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 		}
 	};
 
-	// Get Channel and messages every time the channel id change
 	useEffect(() => {
 		// Get Channel
 		const fetchData = async () => {
 			const channelDoc = firebase.firestore().collection('channels').doc(channelId);
 			const channel = await channelDoc.get();
 
-			if (!channel || !channel.exists) {
-				return history.push('/');
-			}
-
 			setChannel({ id: channel.id, ...channel.data() } as IChannel);
 
 			// Get Messages
-			const messages = await channelDoc
+			const messagesRaw = await channelDoc
 				.collection('messages')
 				.orderBy('timestamp', 'asc')
 				.get();
 
 			setMessages(
-				messages.docs.map((message) => ({ id: message.id, ...message.data() } as IMessage))
+				messagesRaw.docs.map(
+					(message) => ({ id: message.id, ...message.data() } as IMessage)
+				)
 			);
 
 			setIsLoading(false);
 		};
 
 		fetchData();
-	}, [channelId, history, messages]);
-
-	// Redirect if not have id
-	if (!channelId) {
-		return <Redirect to='/' />;
-	}
+	}, [channelId, history]);
 
 	return (
 		<Container>
-			{!isLoading && <Loading isLoading={isLoading} />}
+			{isLoading && <Loading isLoading={isLoading} />}
 
-			{channel && (
-				<ChannelDialog
-					channel={channel}
-					isOpen={modalVisibility}
-					onClose={() => setModalVisibility(false)}
-				/>
+			{channel ? (
+				<>
+					<ChannelDialog
+						channel={channel}
+						isOpen={modalVisibility}
+						onClose={() => setModalVisibility(false)}
+					/>
+
+					<Header>
+						<Channel>
+							<ChannelName># {channel?.name}</ChannelName>
+							{channel?.description && (
+								<ChannelInfo>{channel?.description}</ChannelInfo>
+							)}
+						</Channel>
+						<ChannelDetails onClick={() => setModalVisibility(!modalVisibility)}>
+							<div>Details</div>
+
+							<Info />
+						</ChannelDetails>
+					</Header>
+					<MessageContainer>
+						{messages &&
+							messages.map((message: IMessage, index: number) => (
+								<ChatMessage key={index} message={message} />
+							))}
+					</MessageContainer>
+					<ChatInput sendFunction={sendMessage} />
+				</>
+			) : (
+				<h1>No Channel</h1>
 			)}
-
-			<Header>
-				<Channel>
-					<ChannelName># {channel?.name}</ChannelName>
-					{channel?.description && <ChannelInfo>{channel?.description}</ChannelInfo>}
-				</Channel>
-				<ChannelDetails onClick={() => setModalVisibility(!modalVisibility)}>
-					<div>Details</div>
-
-					<Info />
-				</ChannelDetails>
-			</Header>
-			<MessageContainer>
-				{messages &&
-					messages.map((message: IMessage, index: number) => (
-						<ChatMessage key={index} message={message} />
-					))}
-			</MessageContainer>
-			<ChatInput sendFunction={sendMessage} />
 		</Container>
 	);
 };

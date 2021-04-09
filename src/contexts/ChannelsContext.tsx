@@ -47,6 +47,7 @@ export const ChannelsProvider = ({ children }: IChannelsProviderProps) => {
 		return await docRef
 			.delete()
 			.then(() => {
+				// Delete all messages
 				docRef.collection('messages').onSnapshot((messages) => {
 					messages.forEach((message) => message.ref.delete());
 				});
