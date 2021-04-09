@@ -1,14 +1,16 @@
 export const flexSettings = (direction = 'row') => {
 	return `
 		display: flex;
-		flex-direction: ${direction}
+
+		${direction && `flex-direction: ${direction}`};
 	`;
 };
 
 export const flexAlignment = (align = 'center', justify = 'flex-start') => {
 	return `
 		align-items: ${align};
-		justify-content: ${justify}
+
+		${justify && `justify-content: ${justify}`};
 	`;
 };
 

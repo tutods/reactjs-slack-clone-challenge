@@ -14,7 +14,11 @@ const Loading: React.FunctionComponent<ILoadingProps> = ({ isLoading }) => {
 	return (
 		<Portal target='loader'>
 			<Overlay>
-				<Loader />
+				<Loader>
+					<span />
+					<span />
+					<span />
+				</Loader>
 			</Overlay>
 		</Portal>
 	);

@@ -9,7 +9,7 @@ export const Overlay = styled.div`
 	right: 0;
 	bottom: 0;
 
-	background-color: rgba(0, 0, 0, 0.95);
+	background-color: rgba(0, 0, 0, 0.75);
 
 	z-index: 100;
 `;
@@ -20,67 +20,73 @@ export const Loader = styled.div`
 	left: 50%;
 	transform: translate(-50%, 50%);
 
-	color: ${(props) => props.theme.colors.white};
-
-	font-size: 10px;
-	position: relative;
-	text-indent: -9999em;
-	-webkit-transform: translateZ(0);
-	-ms-transform: translateZ(0);
-	transform: translateZ(0);
-	-webkit-animation-delay: -0.16s;
-	animation-delay: -0.16s;
-
-	border-radius: 100%;
-	width: 20px;
-	height: 20px;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation: load7 1.8s infinite ease-in-out;
-	animation: load7 1.8s infinite ease-in-out;
-
-	&:before,
-	&:after {
+	> * {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
 		border-radius: 100%;
-		width: 20px;
-		height: 20px;
-		-webkit-animation-fill-mode: both;
-		animation-fill-mode: both;
-		-webkit-animation: load7 1.8s infinite ease-in-out;
-		animation: load7 1.8s infinite ease-in-out;
-		content: '';
-		position: absolute;
-		top: 0;
-	}
+		background: ${(props) => props.theme.colors.white};
+		opacity: 0.6;
 
-	&:before {
-		left: -30px;
-		-webkit-animation-delay: -0.32s;
-		animation-delay: -0.32s;
-	}
-
-	&:after {
-		left: 30px;
-	}
-
-	@-webkit-keyframes load7 {
-		0%,
-		80%,
-		100% {
-			box-shadow: 0 20px 0 -10px;
+		&:nth-child(1) {
+			animation: bump1 1s cubic-bezier(0.62, 0.25, 0.53, 0.98) infinite;
 		}
+
+		&:nth-child(2) {
+			animation: bump2 1s cubic-bezier(0.62, 0.25, 0.53, 0.98) infinite;
+		}
+
+		&:nth-child(3) {
+			animation: bump3 1s cubic-bezier(0.62, 0.25, 0.53, 0.98) infinite;
+		}
+
+		+ * {
+			margin-left: 10px;
+		}
+	}
+
+	@keyframes bump1 {
 		40% {
-			box-shadow: 0 20px 0 0;
+			transform: scale(1, 1);
+		}
+
+		70% {
+			transform: scale(1.6, 1.6);
+			opacity: 1;
+		}
+
+		80% {
+			transform: scale(1, 1);
 		}
 	}
-	@keyframes load7 {
-		0%,
-		80%,
-		100% {
-			box-shadow: 0 20px 0 -10px;
+
+	@keyframes bump2 {
+		50% {
+			transform: scale(1, 1);
 		}
-		40% {
-			box-shadow: 0 20px 0 0;
+
+		80% {
+			transform: scale(1.6, 1.6);
+			opacity: 1;
+		}
+
+		90% {
+			transform: scale(1, 1);
+		}
+	}
+
+	@keyframes bump3 {
+		60% {
+			transform: scale(1, 1);
+		}
+
+		90% {
+			transform: scale(1.6, 1.6);
+			opacity: 1;
+		}
+
+		100% {
+			transform: scale(1, 1);
 		}
 	}
 `;

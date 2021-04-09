@@ -69,7 +69,6 @@ const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 			}
 
 			setChannel({ id: channel.id, ...channel.data() } as IChannel);
-			setIsLoading(true);
 
 			// Get Messages
 			const messages = await channelDoc
@@ -80,24 +79,29 @@ const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 			setMessages(
 				messages.docs.map((message) => ({ id: message.id, ...message.data() } as IMessage))
 			);
+
+			setIsLoading(false);
 		};
 
 		fetchData();
-	}, [channelId, history, messages, isLoading]);
+	}, [channelId, history, messages]);
 
 	// Redirect if not have id
 	if (!channelId) {
 		return <Redirect to='/' />;
 	}
 
-	return channel ? (
+	return (
 		<Container>
-			<Loading isLoading={isLoading} />
-			<ChannelDialog
-				channel={channel}
-				isOpen={modalVisibility}
-				onClose={() => setModalVisibility(false)}
-			/>
+			{!isLoading && <Loading isLoading={isLoading} />}
+
+			{channel && (
+				<ChannelDialog
+					channel={channel}
+					isOpen={modalVisibility}
+					onClose={() => setModalVisibility(false)}
+				/>
+			)}
 
 			<Header>
 				<Channel>
@@ -118,8 +122,6 @@ const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 			</MessageContainer>
 			<ChatInput sendFunction={sendMessage} />
 		</Container>
-	) : (
-		<Loading isLoading={true} />
 	);
 };
 
