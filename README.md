@@ -1,5 +1,5 @@
 <div align="center">
-<a href="#"><img alt="Slack" src="./src/assets/media/slack.svg" width="150px"></a>
+<a href="#"><img alt="Slack" src="./src/assets/media/slack.svg" width="100px"></a>
 <h1 style="font-weight: 300; margin-top: 5px; margin-bottom: 0;">Slack Clone | <strong>ReactJS Challenge</strong></h1>
 <h2 style="font-weight: 300;margin-top: 0px"><strong>Clever Programmer</strong></h2>
 </div>
@@ -19,49 +19,55 @@
 	</a>
 </div>
 
-# Getting Started with Create React App
+<h2 style="font-weight:300">📹 Videos:</h2>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**[Day 1](https://www.youtube.com/watch?v=K07O0zh-eNc)** | **[Day 2](https://www.youtube.com/watch?v=ml_04VfhrNs)** | **[Day 3](https://www.youtube.com/watch?v=0RZDbsXLcRg)** | **[Day 4](https://www.youtube.com/watch?v=imdI8XgO-sE)** | **[Day 5](https://www.youtube.com/watch?v=eGSmujxNFMA)**
 
-## Available Scripts
+<h2 style="font-weight:300">🌐 Deploy:</h2>
 
-In the project directory, you can run:
+<a href="https://slack-clone-challenge-c35ca.web.app/">
+  <img alt="Vercel" src="https://img.shields.io/badge/firebase%20-%23FFCA28.svg?&style=for-the-badge&logo=firebase&logoColor=black" alt='Deploy'/>
+</a>
 
-### `yarn start`
+<h2 style="font-weight:300">🚀 Commands:</h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   `yarn start`: Runs the app in the development mode;
+-   `yarn build`: To create a build to launch in production.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<h2 style="font-weight: 300">🗒 Changes:</h2>
 
-### `yarn test`
+-   Use **TypeScript**;
+-   Use a different colors and create a **dark/light mode**;
+-   Use folder to storage (to **Components** amnd **Controllers**) two files:
+    -   `styles.tsx`: Contains styles using **Styled Components**;
+    -   `index.tsx`: Contains the main code
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br />
 
-### `yarn build`
+<div align="right" style="margin-top: 50px">
+<h3 style="font-weight: 300">
+🧑🏻‍💻 About Me
+</h3>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<a href="https://github.com/TutoDS" alt="TutoDS">
+<img src="https://github.com/tutods.png" alt="Daniel Sousa @TutoDS" width="100px" style="border-radius: 100%">
+<br />
+ <sub><b>Daniel Sousa @TutoDS</b></sub>
+</a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<div style="margin: 20px 0" />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[facebook]: https://facebook.com/tutods2014
+[twitter]: https://twitter.com/tutods
+[youtube]: https://youtube.com/tutods2014
+[instagram]: https://instagram.com/dsousa_12
+[linkedin]: https://www.linkedin.com/in/daniel-sousa-tutods/
+[gitlab]: https://gitlab.com/jdaniel.asousa
 
-### `yarn eject`
+[<img src="https://img.shields.io/badge/Facebook%20-%232671E5.svg?&style=for-the-badge&logo=Facebook&logoColor=white" alt="Facebook"/>][facebook] [<img src="https://img.shields.io/badge/Twitter%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white" alt="Twitter"/>][twitter]
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[<img src="https://img.shields.io/badge/LinkedIn%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>][linkedin] [<img src="https://img.shields.io/badge/Instagram%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white" alt="Instagram"/>][instagram]
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[<img src="https://img.shields.io/badge/YouTube%20-%23FF0000.svg?&style=for-the-badge&logo=YouTube&logoColor=white" alt="YouTube"/>][youtube] [<img src="https://img.shields.io/badge/Gitlab%20-%23181717.svg?&style=for-the-badge&logo=gitlab&logoColor=white"/>][gitlab]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+</div>
