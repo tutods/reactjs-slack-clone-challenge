@@ -1,4 +1,25 @@
-si# Getting Started with Create React App
+<div align="center">
+<a href="#"><img alt="Slack" src="./src/assets/media/slack.svg" width="150px"></a>
+<h1 style="font-weight: 300; margin-top: 5px; margin-bottom: 0;">Slack Clone | <strong>ReactJS Challenge</strong></h1>
+<h2 style="font-weight: 300;margin-top: 0px"><strong>Clever Programmer</strong></h2>
+</div>
+
+<div align="center">
+  	<a href="#">
+  		<img src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React"/>
+	</a>
+	<a href="#">
+		<img src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+	</a>
+	<a href="#">
+		<img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" alt="VS Code" />
+	</a>
+	<a href="https://github.com/TutoDS/reactjs-slack-clone-challenge/stargazers">
+    	<img alt="Stargazers" src="https://img.shields.io/github/stars/TutoDS/reactjs-slack-clone-challenge?style=for-the-badge">
+	</a>
+</div>
+
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
