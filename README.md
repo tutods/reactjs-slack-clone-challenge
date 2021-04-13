@@ -40,7 +40,8 @@
 -   Use a different colors and create a **dark/light mode**;
 -   Use folder to storage (to **Components** amnd **Controllers**) two files:
     -   `styles.tsx`: Contains styles using **Styled Components**;
-    -   `index.tsx`: Contains the main code
+    -   `index.tsx`: Contains the main code.
+-   Create a channel info modal with delete function;
 
 <br />
 

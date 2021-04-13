@@ -3,6 +3,7 @@ import { ChatInput } from 'components/inputs/ChatInput';
 import Loading from 'components/Loading';
 import { ChannelDialog } from 'components/modals/ChannelDialog';
 import { UserContext } from 'contexts/UserContext';
+import { NoChannelSelected } from 'controllers/NoChannelSelected';
 import firebase from 'firebase';
 import { IChannel, IMessage } from 'interfaces/IChannel';
 import React, { useContext, useEffect, useState } from 'react';
@@ -81,7 +82,7 @@ const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 		};
 
 		fetchData();
-	}, [channelId, history]);
+	}, [channelId]);
 
 	return (
 		<Container>
@@ -117,7 +118,7 @@ const Chat: React.FunctionComponent<IChannelProps> = ({ history }) => {
 					<ChatInput sendFunction={sendMessage} />
 				</>
 			) : (
-				<h1>No Channel</h1>
+				<NoChannelSelected />
 			)}
 		</Container>
 	);
