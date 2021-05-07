@@ -21,8 +21,6 @@ firebase.initializeApp({
 	appId: REACT_APP_APP_ID
 });
 
-// const fireStoreDb = firebaseApp.firestore();
-
 const firebaseAuth = firebase.auth();
 const firebaseProvider = new firebase.auth.GoogleAuthProvider();
 

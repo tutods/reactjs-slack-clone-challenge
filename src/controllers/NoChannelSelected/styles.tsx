@@ -1,4 +1,4 @@
-import { flexSettings, flexAlignment } from 'assets/styles/mixins';
+import { flexAlignment, flexSettings } from 'assets/styles/mixins';
 import styled from 'styled-components';
 
 export const ChannelWarning = styled.div`
@@ -28,16 +28,14 @@ export const Logo = styled.img`
 
 	margin-bottom: 40px;
 
-	animation-name: ckw;
-	animation-duration: 10s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
+	animation: logo-spin infinite 20s linear;
 
-	@keyframes ckw {
-		0% {
+	@keyframes logo-spin {
+		from {
 			transform: rotate(0deg);
 		}
-		100% {
+
+		to {
 			transform: rotate(360deg);
 		}
 	}
