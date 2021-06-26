@@ -26,7 +26,7 @@
 <h2 style="font-weight:300">🌐 Deploy:</h2>
 
 <a href="https://slack-clone-challenge-c35ca.web.app/">
-  <img alt="Vercel" src="https://img.shields.io/badge/firebase%20-%23FFCA28.svg?&style=for-the-badge&logo=firebase&logoColor=black" alt='Deploy'/>
+  <img src="https://img.shields.io/badge/firebase%20-%23FFCA28.svg?&style=for-the-badge&logo=firebase&logoColor=black" alt='Deploy'/>
 </a>
 
 <h2 style="font-weight:300">🚀 Commands:</h2>
